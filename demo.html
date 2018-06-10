@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style type="text/css">
+		.container{
+			padding: 0 0 40px 0;
+			min-width: 450px;
+		}
+		.panel{
+			margin: 40px 15px;
+		}
+		.row{
+			margin: 30px 0;
+		}
+		.btn{
+			float: right;
+			margin-right: 15px;
+			margin-top: 10px;
+		}
+		.input-group{
+			padding: 0 15px;
+			margin-top: 40px;
+		}
+		.hide{
+			display: none;
+		}
+		.show{
+			display: block;
+		}
+		#secondBlock{
+			margin-top: 50px;
+		}
+	</style>
+</head>
+<body>
+<div class="container">
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<h2><b>Australia PostCode Query & Full Address Generator</b></h2>
+		</div>
+		<div class="panel-body">
+			<h4>STEP 1: Select option following this :  State  &gt;&gt; City &gt;&gt; Suburb</h4>
+			<br/>
+			<h4>STEP 2: PostCode and  Full Address generated</h4>
+		</div>
+		<div class="panel-footer panel-info">@ Come and no hesitant to try :)</div>
+  	</div>
+
+	<div class="row">
+		<div class="col-md-4">
+			<div class="form-group">
+				<label for="state">State</label>
+				<select id="state" class="form-control" ></select>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group">
+				<label for="district">District</label>
+				<!--<select id="district" class="form-control" style="position: absolute;z-index: 1;" onmousedown="if(this.options.length>2){this.size=3}" onblur="this.size=0" onchange="this.size=0">-->
+				</select><select id="district" class="form-control"></select>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group">
+				<label for="suburb">Suburb</label>
+				<select id="suburb" class="form-control"></select>
+			</div>
+		</div>
+	</div>
+
+	<div class="clearfix">
+		<button class="btn btn-info btn btn-lg" id="resetValue">Reset</button>
+		<button class="btn btn-warning btn btn-lg" id="newAdd">Another Address</button>
+	</div>
+
+	<div class="input-group input-group-lg">
+		<input type="text" class="form-control" id="postInput" placeholder="Australia PostCode Generated...">
+		<span class="input-group-addon" id="postCopy" readonly>Click to copy</span>
+	</div>
+	<div class="input-group input-group-lg">
+		<input type="textarea" class="form-control" id="fullAddress" placeholder="Address Generated...">
+		<span class="input-group-addon" id="addressCopy">Click to Copy</span>
+	</div>
+
+
+
+
+	<div class="hide" id="secondBlock">
+		<hr>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="state1">State</label>
+					<select id="state1" class="form-control"></select>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="district1">District</label>
+					<select id="district1" class="form-control"></select>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="suburb1">Suburb</label>
+					<select id="suburb1" class="form-control"></select>
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="clearfix">
+			<button class="btn btn-info btn btn-lg" id="resetValue1">Reset</button>
+		</div>
+
+		<div class="input-group input-group-lg">
+			<input type="text" class="form-control" id="postInput1" placeholder="Australia PostCode Generated...">
+			<span class="input-group-addon" id="postCopy1" readonly>Click to copy</span>
+		</div>
+		<div class="input-group input-group-lg">
+			<input type="textarea" class="form-control" id="fullAddress1" placeholder="Address Generated...">
+			<span class="input-group-addon" id="addressCopy1">Click to Copy</span>
+		</div>
+	</div>
+
+
+	<!--<select style="position: absolute;z-index: 1;" onmousedown="if(this.options.length>6){this.size=7}" onblur="this.size=0" onchange="this.size=0">-->
+		<!--<option value="volvo">文学集</option>-->
+		<!--<option value="saab">哲学</option>-->
+		<!--<option value="opel">雅思</option>-->
+		<!--<option value="audi">大学网奥数大学网奥数</option>-->
+		<!--<option value="volvo">文学集</option>-->
+		<!--<option value="saab">哲学</option>-->
+		<!--<option value="opel">雅思</option>-->
+		<!--<option value="audi">大学网奥数</option>-->
+	<!--</select>-->
+</div>
+
+
+<script type="text/javascript" src="auPostCode.js"></script>
+<script>
+		window.onload=function () {
+			let post= new Aupost("state","district","suburb","postInput","fullAddress");
+			document.getElementById("resetValue").onclick=function () {
+                post.reset();
+            };
+            document.getElementById("newAdd").onclick=function () {
+
+                let secondBlock=document.getElementById("secondBlock");
+				if(secondBlock.className=="hide"){
+                    secondBlock.className="show";
+                    this.innerHTML="Hide Other Address";
+				}else{
+                    secondBlock.className="hide";
+                    this.innerHTML="Another Address";
+				}
+            };
+			document.getElementsByClassName("postCopy").onclick=function () {
+				let copyContent=this.previousElementSibling;
+				copyContent.select();
+				if(copyContent){
+                    document.execCommand("copy");
+				}
+            };
+            document.getElementById("addressCopy").onclick=function () {
+				let copyContent=this.previousElementSibling;
+				copyContent.select();
+                if(copyContent){
+                    document.execCommand("copy");
+                }
+            };
+			//address2
+            let post1= new Aupost("state1","district1","suburb1","postInput1","fullAddress1");
+            document.getElementById("resetValue1").onclick=function () {
+                post1.reset();
+            };
+            document.getElementById("postCopy1").onclick=function () {
+                let copyContent=document.getElementById("postInput1");
+                copyContent.select();
+                if(copyContent){
+                    document.execCommand("copy1");
+                }
+            };
+            document.getElementById("addressCopy1").onclick=function () {
+                let copyContent=document.getElementById("fullAddress1");
+                copyContent.select();
+                if(copyContent){
+                    document.execCommand("copy");
+                }
+            };
+        }
+
+</script>
+</body>
+</html>
